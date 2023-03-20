@@ -67,7 +67,7 @@ function processCalc($credit_amount, $credit_duration, $credit_percent, $output_
 
     switch ($output_type) {
         case 'annually':
-            return round($credit_amount + $credit_amount * $credit_percent / 100, 2);
+            return round(($credit_amount + $credit_amount * $credit_percent / 100) / $credit_duration, 2);
         default:
             $months = $credit_duration * 12;
             return round(($credit_amount + $credit_amount * $credit_percent / 100) / $months, 2);

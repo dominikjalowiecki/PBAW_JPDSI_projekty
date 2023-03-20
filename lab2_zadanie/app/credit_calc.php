@@ -56,7 +56,7 @@ if (empty($messages)) {
 
     switch ($output_type) {
         case 'annually':
-            $res = round($credit_amount + $credit_amount * $credit_percent / 100, 2);
+            $res = round(($credit_amount + $credit_amount * $credit_percent / 100) / $credit_duration, 2);
             break;
         default:
             $months = $credit_duration * 12;
