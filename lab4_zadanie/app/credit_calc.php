@@ -1,6 +1,7 @@
 <?php
 # Credit calculator controller
 require_once __DIR__ . '/../config.php';
+require_once _ROOT_PATH . '/libs/smarty/Smarty.class.php';
 
 include _ROOT_PATH . '/app/security/check.php';
 
@@ -16,7 +17,7 @@ function getCalcParams()
 }
 
 
-function validateCalc($credit_amount, $credit_duration, $credit_percent, &$infos, &$messages)
+function validateCalc($credit_amount, $credit_duration, $credit_percent, &$infos, &$messages, &$hide_hero)
 {
     if (
         $credit_amount === null ||
@@ -25,6 +26,8 @@ function validateCalc($credit_amount, $credit_duration, $credit_percent, &$infos
     ) return false;
 
     $infos[] = 'Parameters received.';
+
+    $hide_hero = true;
 
     if ($credit_amount === '')
         $messages[] = 'Credit amount is missing...';
@@ -72,21 +75,39 @@ function processCalc($credit_amount, $credit_duration, $credit_percent, $output_
 
     switch ($output_type) {
         case 'annually':
-            return round(($credit_amount + $credit_amount * $credit_percent / 100) / $credit_duration, 2);
+            return ($credit_amount + $credit_amount * $credit_percent / 100) / $credit_duration;
         default:
             $months = $credit_duration * 12;
-            return round(($credit_amount + $credit_amount * $credit_percent / 100) / $months, 2);
+            return ($credit_amount + $credit_amount * $credit_percent / 100) / $months;
     }
 }
 
 
 $messages = array();
 $infos = array();
+$hide_hero = false;
+$res = null;
 
 [$credit_amount, $credit_duration, $credit_percent, $output_type] = getCalcParams();
 
-if (validateCalc($credit_amount, $credit_duration, $credit_percent, $infos, $messages))
+if (validateCalc($credit_amount, $credit_duration, $credit_percent, $infos, $messages, $hide_hero))
     $res = processCalc($credit_amount, $credit_duration, $credit_percent, $output_type, $infos, $messages);
 
+$smarty = new Smarty();
 
-include _ROOT_PATH . '/app/credit_calc_view.php';
+$smarty->assign('app_url', _APP_URL);
+$smarty->assign('p_title', 'Credit calculator | Calculator');
+$smarty->assign('p_description', 'Calculator page');
+$smarty->assign('p_major_title', 'Credit caltulator');
+$smarty->assign('p_major_description', 'Calculate credit interest within seconds.');
+
+$smarty->assign('credit_amount', $credit_amount);
+$smarty->assign('credit_duration', $credit_duration);
+$smarty->assign('credit_percent', $credit_percent);
+$smarty->assign('output_type', $output_type);
+$smarty->assign('res', $res);
+$smarty->assign('messages', $messages);
+$smarty->assign('infos', $infos);
+$smarty->assign('hide_hero', $hide_hero);
+
+$smarty->display(_ROOT_PATH . '/app/credit_calc.tpl');
