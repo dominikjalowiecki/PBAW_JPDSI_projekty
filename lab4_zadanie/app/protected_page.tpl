@@ -1,0 +1,1 @@
+{extends file="../assets/templates/_base.tpl"}

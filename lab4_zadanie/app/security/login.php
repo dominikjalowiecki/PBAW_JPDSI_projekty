@@ -1,6 +1,7 @@
 <?php
 # Login controller
 require_once __DIR__ . '/../../config.php';
+require_once _ROOT_PATH . '/libs/smarty/Smarty.class.php';
 
 
 function getLoginParams()
@@ -14,7 +15,6 @@ function getLoginParams()
 
 function setRole($role)
 {
-    session_start();
     $_SESSION['role'] = $role;
 }
 
@@ -45,12 +45,23 @@ function validateLogin($login_data, &$messages)
 }
 
 
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+if (isset($_SESSION['role'])) header('Location: ' . _APP_URL);
+
 $messages = array();
 
 $login_data = getLoginParams();
 
 if (!validateLogin($login_data, $messages)) {
-    include _ROOT_PATH . '/app/security/login_view.php';
+    $smarty = new Smarty();
+
+    $smarty->assign('app_url', _APP_URL);
+    $smarty->assign('p_title', 'Credit calculator | Login');
+    $smarty->assign('p_description', 'Website login form');
+    $smarty->assign('p_major_title', 'Login');
+    $smarty->assign('messages', $messages);
+
+    $smarty->display(_ROOT_PATH . '/app/security/login.tpl');
 } else {
     header('Location: ' . _APP_URL);
 }
