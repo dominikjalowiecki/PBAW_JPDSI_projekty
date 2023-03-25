@@ -75,5 +75,33 @@
         {/if}
         </div>
     </div>
+
+    <div class="row gtr-uniform gtr-50">
+        <div class="col-6 col-12-small">
+            <h4>Infos:</h4>
+            {if count($infos) > 0} 
+                <ol id="list-infos" class="list-messages">
+                {foreach from=$infos item=info}
+                    {strip}
+                        <li>{$info}</li>
+                    {/strip}
+                {/foreach}
+                </ol>
+            {/if}   
+        </div>
+
+        <div class="col-6 col-12-small">
+            <h4>Errors:</h4>
+            {if count($messages) > 0} 
+                <ol id="list-errors" class="list-messages">
+                {foreach from=$messages item=message}
+                    {strip}
+                    <li>{$message}</li>
+                    {/strip}
+                {/foreach}
+                </ol>
+            {/if}   
+        </div>
+    </div>
 </form>
 {/block}
