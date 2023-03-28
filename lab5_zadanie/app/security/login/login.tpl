@@ -1,7 +1,7 @@
 {extends file="../../../assets/templates/_base.tpl"}
 
 {block name=main}
-<form method="POST" action="{$app_url}/app/security/login/login.php">
+<form method="POST" action="{$config->action_url}login">
     <div class="row gtr-uniform gtr-50">
         <div class="col-4 col-12-small">
         <input

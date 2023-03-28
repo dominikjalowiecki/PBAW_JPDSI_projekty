@@ -82,7 +82,7 @@ class LoginController extends ActionController
 
         $smarty = new Smarty();
 
-        $smarty->assign('app_url', $config->app_url);
+        $smarty->assign('config', $config);
         $smarty->assign('p_title', 'Credit calculator | Login');
         $smarty->assign('p_description', 'Website login form');
         $smarty->assign('p_major_title', 'Login');

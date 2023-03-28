@@ -57,7 +57,7 @@ class CreditCalcController extends ActionController
 
         if ($this->messages->isError()) return false;
 
-        if ($this->messages->isError()) {
+        if (!$this->messages->isError()) {
             if (!(is_numeric($this->form->credit_amount) && $this->form->credit_amount > 0))
                 $this->messages->addError('Credit amount must be an unsigned, non zero integer...');
 
@@ -113,7 +113,7 @@ class CreditCalcController extends ActionController
 
         $smarty = new Smarty();
 
-        $smarty->assign('app_url', $config->app_url);
+        $smarty->assign('config', $config);
         $smarty->assign('p_title', 'Credit calculator | Calculator');
         $smarty->assign('p_description', 'Calculator page');
         $smarty->assign('p_major_title', 'Credit calculator');

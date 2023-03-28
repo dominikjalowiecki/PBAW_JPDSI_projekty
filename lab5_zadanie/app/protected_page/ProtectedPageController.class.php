@@ -16,7 +16,7 @@ class ProtectedPageController extends Controller
 
         $smarty = new Smarty();
 
-        $smarty->assign('app_url', $config->app_url);
+        $smarty->assign('config', $config);
         $smarty->assign('p_title', 'Credit calculator | Protected page');
         $smarty->assign('p_description', 'Credit calculator protected page');
         $smarty->assign('p_major_title', 'Protected page');

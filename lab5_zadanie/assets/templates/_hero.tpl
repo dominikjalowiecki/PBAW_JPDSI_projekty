@@ -4,7 +4,7 @@
   {if !$hide_hero}
     <section id="hero" class="spotlight style1 bottom">
       <span class="image fit main">
-        <img src="{$app_url}/assets/images/pexels-pixabay-53621.webp" alt="Image shows calculator, pencil and calculations."/>
+        <img src="{$config->app_url}/assets/images/pexels-pixabay-53621.webp" alt="Image shows calculator, pencil and calculations."/>
       </span>
       <div class="content">
         <div class="container">

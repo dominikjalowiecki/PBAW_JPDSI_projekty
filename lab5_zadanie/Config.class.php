@@ -7,4 +7,6 @@ class Config
     public $app_root;
     public $app_url;
     public $root_path;
+    public $action_root;
+    public $action_url;
 }
