@@ -1,10 +1,6 @@
 <?php
-require_once $config->root_path . '/libs/ActionController.class.php';
-
-require_once $config->root_path . '/app/security/login/LoginForm.class.php';
-require_once $config->root_path . '/libs/Messages.class.php';
-require_once $config->root_path . '/libs/smarty/Smarty.class.php';
-
+require_once $config->root_path . '/core/ActionController.class.php';
+require_once $config->root_path . '/app/controllers/login/LoginForm.class.php';
 
 /**
  * Class of login controller
@@ -13,12 +9,10 @@ require_once $config->root_path . '/libs/smarty/Smarty.class.php';
 class LoginController extends ActionController
 {
     private $form;
-    private $messages;
 
     public function __construct()
     {
         $this->form = new LoginForm();
-        $this->messages = new Messages();
     }
 
     /**
@@ -31,22 +25,24 @@ class LoginController extends ActionController
 
     protected function getParams()
     {
-        $this->form->login = isset($_REQUEST['login']) ? trim($_REQUEST['login']) : null;
-        $this->form->password = isset($_REQUEST['password']) ? trim($_REQUEST['password']) : null;
+        $this->form->login = getFromRequest('login');
+        $this->form->password = getFromRequest('password');
     }
 
     protected function validate()
     {
+        $messages = getMessages();
+
         if ($this->form->login === null || $this->form->password === null)
             return false;
 
         if ($this->form->login === '')
-            $this->messages->addError('Login is required!');
+            $messages->addError('Login is required!');
 
         if ($this->form->password === '')
-            $this->messages->addError('Password is required!');
+            $messages->addError('Password is required!');
 
-        if ($this->messages->isError()) return false;
+        if ($messages->isError()) return false;
 
         if ($this->form->login === 'admin' && $this->form->password === 'admin') {
             self::setRole('admin');
@@ -56,13 +52,13 @@ class LoginController extends ActionController
             return true;
         }
 
-        $this->messages->addError('Invalid login or password...');
+        $messages->addError('Invalid login or password...');
         return false;
     }
 
     public function process()
     {
-        global $config;
+        $config = getConfig();
 
         if (session_status() !== PHP_SESSION_ACTIVE) session_start();
         if (isset($_SESSION['role'])) header('Location: ' . $config->app_url);
@@ -78,16 +74,12 @@ class LoginController extends ActionController
 
     protected function generateView()
     {
-        global $config;
+        $smarty = getSmarty();
 
-        $smarty = new Smarty();
-
-        $smarty->assign('config', $config);
         $smarty->assign('p_title', 'Credit calculator | Login');
         $smarty->assign('p_description', 'Website login form');
         $smarty->assign('p_major_title', 'Login');
-        $smarty->assign('messages', $this->messages);
 
-        $smarty->display($config->root_path . '/app/security/login/login.tpl');
+        $smarty->display('login.tpl');
     }
 }

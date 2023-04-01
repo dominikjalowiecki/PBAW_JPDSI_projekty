@@ -1,4 +1,4 @@
-{extends file="../../assets/templates/_hero.tpl"}
+{extends file="_hero.tpl"}
 
 {block name=main}
 <h3>Form</h3>

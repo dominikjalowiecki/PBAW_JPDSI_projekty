@@ -1,4 +1,4 @@
-{extends file="../../../assets/templates/_base.tpl"}
+{extends file="_base.tpl"}
 
 {block name=main}
 <form method="POST" action="{$config->action_url}login">

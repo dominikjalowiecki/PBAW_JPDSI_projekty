@@ -1,4 +1,4 @@
-{extends file="./_base.tpl"}
+{extends file="_base.tpl"}
 
 {block name=hero}
   {if !$hide_hero}
