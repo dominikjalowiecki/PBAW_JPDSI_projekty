@@ -1,5 +1,7 @@
 <?php
 
+namespace app\models;
+
 class CreditCalcResult
 {
     public $result;

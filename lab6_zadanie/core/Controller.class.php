@@ -1,5 +1,7 @@
 <?php
 
+namespace core;
+
 /**
  * Abstract class of simple controllers
  * @author Dominik Jałowiecki

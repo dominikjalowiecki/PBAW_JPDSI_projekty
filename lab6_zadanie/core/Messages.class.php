@@ -1,5 +1,7 @@
 <?php
 
+namespace core;
+
 /**
  * Class of messages
  * @author Dominik Jałowiecki
