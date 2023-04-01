@@ -1,5 +1,7 @@
 <?php
 
+namespace app\forms;
+
 class CreditCalcForm
 {
     public $credit_amount;

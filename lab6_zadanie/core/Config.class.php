@@ -1,5 +1,7 @@
 <?php
 
+namespace core;
+
 class Config
 {
     public $server_name;

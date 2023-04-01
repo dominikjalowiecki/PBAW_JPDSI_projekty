@@ -1,12 +1,15 @@
 <?php
-require_once $config->root_path . '/core/ActionController.class.php';
-require_once $config->root_path . '/app/controllers/login/LoginForm.class.php';
+
+namespace app\controllers;
+
+use app\forms\LoginForm;
+use function core\getFromRequest;
 
 /**
  * Class of login controller
  * @author Dominik Jałowiecki
  */
-class LoginController extends ActionController
+class LoginController extends \core\ActionController
 {
     private $form;
 

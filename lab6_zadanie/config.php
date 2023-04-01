@@ -1,4 +1,5 @@
 <?php
+
 $config->server_name = 'localhost';
 $config->server_url = 'http://' . $config->server_name;
 $config->app_root = '/PBAW_JPDSI_projekty/lab6_zadanie';

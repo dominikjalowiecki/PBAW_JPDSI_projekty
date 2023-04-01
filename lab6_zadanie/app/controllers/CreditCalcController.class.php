@@ -1,13 +1,16 @@
 <?php
-require_once $config->root_path . '/core/ActionController.class.php';
-require_once $config->root_path . '/app/controllers/credit_calc/CreditCalcForm.class.php';
-require_once $config->root_path . '/app/controllers/credit_calc/CreditCalcResult.class.php';
+
+namespace app\controllers;
+
+use app\forms\CreditCalcForm;
+use app\models\CreditCalcResult;
+use function core\getFromRequest;
 
 /**
  * Class of credit calculator controller
  * @author Dominik Jałowiecki
  */
-class CreditCalcController extends ActionController
+class CreditCalcController extends \core\ActionController
 {
     private $form;
     private $result;

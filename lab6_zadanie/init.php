@@ -1,6 +1,7 @@
 <?php
+
 require_once __DIR__ . '/core/Config.class.php';
-$config = new Config();
+$config = new core\Config();
 
 include __DIR__ . '/config.php';
 
@@ -16,7 +17,7 @@ function &getConfig()
 
 
 require_once getConfig()->root_path . '/core/Messages.class.php';
-$messages = new Messages();
+$messages = new core\Messages();
 
 function getMessages()
 {
@@ -50,6 +51,16 @@ function getSmarty()
 }
 
 
+require_once getConfig()->root_path . '/core/ClassLoader.class.php';
+
+$class_loader = new core\ClassLoader();
+function getClassLoader()
+{
+    global $class_loader;
+    return $class_loader;
+}
+
+
 require_once getConfig()->root_path . '/core/helper_functions.php';
 
-$action = getFromRequest('action');
+$action = core\getFromRequest('action');

@@ -1,11 +1,12 @@
 <?php
-require_once $config->root_path . '/core/Controller.class.php';
+
+namespace app\controllers;
 
 /**
  * Class of protected page controller
  * @author Dominik Jałowiecki
  */
-class ProtectedPageController extends Controller
+class ProtectedPageController extends \core\Controller
 {
     protected function generateView()
     {
