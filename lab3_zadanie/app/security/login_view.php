@@ -19,7 +19,7 @@
         <form action="<?php echo _APP_ROOT . '/app/security/login.php'; ?>" method="POST" class="pure-form">
             <fieldset>
                 <legend>Login form</legend>
-                <input type="text" name="login" id="login" value="<?php if ($login_data['login'] !== null) echo $login_data['login'];  ?>" placeholder="Login">
+                <input type="text" name="login" id="login" value="<?php out($login_data['login']); ?>" placeholder="Login">
                 <input type="password" name="password" id="password" placeholder="Password">
                 <button type="submit" class="pure-button pure-button-primary">Login</button>
             </fieldset>

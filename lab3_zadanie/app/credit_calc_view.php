@@ -28,11 +28,11 @@
             <fieldset>
                 <legend>Calculator form</legend>
                 <label for="credit_amount">Credit amount ($)</label>
-                <input type="text" name="credit_amount" id="credit_amount" placeholder="100000" value="<?php if ($credit_amount !== null) echo $credit_amount; ?>">
+                <input type="text" name="credit_amount" id="credit_amount" placeholder="100000" value="<?php out($credit_amount); ?>">
                 <label for="credit_duration">Credit duration (years)</label>
-                <input type="text" name="credit_duration" id="credit_duration" placeholder="5" value="<?php if ($credit_duration !== null) echo $credit_duration; ?>">
+                <input type="text" name="credit_duration" id="credit_duration" placeholder="5" value="<?php out($credit_duration); ?>">
                 <label for="credit_percent">Credit percent (%)</label>
-                <input type="text" name="credit_percent" id="credit_percent" placeholder="12.5" value="<?php if ($credit_percent !== null) echo $credit_percent; ?>">
+                <input type="text" name="credit_percent" id="credit_percent" placeholder="12.5" value="<?php out($credit_percent); ?>">
                 <label for="output_type">Output type</label>
                 <select name="output_type" id="output_type">
                     <option value="montly">Monthly</option>
