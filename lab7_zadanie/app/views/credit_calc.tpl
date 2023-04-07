@@ -2,7 +2,8 @@
 
 {block name=main}
 <h3>Form</h3>
-<form method="GET" action="{$config->action_url}credit_calc">
+<form method="GET" action="{$config->app_url}">
+    <input type="hidden" name="action" value="credit_calc">
     <div class="row gtr-uniform gtr-50">
         <div class="col-6 col-12-small">
             <label for="credit_amount">Credit amount ($)</label>
@@ -43,8 +44,12 @@
         <div class="col-6 col-12-small">
             <label for="output_type">Output type</label>
             <select name="output_type" id="output_type">
-            <option value="montly">Monthly</option>
-            <option value="annually" {if $form->output_type === 'annually'}selected{/if}>Annually</option>
+                {if isset($form->output_type)}
+                    <option value="{$form->output_type}" selected>Repeat: {$form->output_type}</option>
+                    <option value="" disabled>======</option>
+                {/if}
+                <option value="montly">Monthly</option>
+                <option value="annually">Annually</option>
             </select>
         </div>
 

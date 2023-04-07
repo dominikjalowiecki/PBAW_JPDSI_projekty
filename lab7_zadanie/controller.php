@@ -3,28 +3,25 @@
 // Front controller
 require_once __DIR__ . '/init.php';
 
-use app\controllers\{
-    LoginController,
-    ProtectedPageController,
-    CreditCalcController
-};
+use function core\control;
+
+getConfig()->no_permission_action = 'credit_calc';
 
 switch ($action) {
     case 'login':
-        (new LoginController())->process();
+        control('LoginController');
         break;
     case 'logout':
-        (new LoginController())->logout();
+        control('LoginController', null, ['user', 'admin'], 'logout');
         break;
     case 'protected_page':
-        include $config->root_path . '/app/security/check.php';
-
-        (new ProtectedPageController())->process();
+        control('ProtectedPageController', null, ['user']);
         break;
     case 'credit_calc':
+    case null:
+        control('CreditCalcController', null, ['user', 'admin']);
+        break;
     default:
-        include $config->root_path . '/app/security/check.php';
-
-        (new CreditCalcController())->process();
+        echo '404 Page Not Found';
         break;
 }

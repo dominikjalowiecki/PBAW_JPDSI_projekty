@@ -4,7 +4,11 @@ namespace app\controllers;
 
 use app\forms\CreditCalcForm;
 use app\models\CreditCalcResult;
-use function core\getFromRequest;
+use function core\{
+    getFromRequest,
+    getFromSession,
+    inRoles
+};
 
 /**
  * Class of credit calculator controller
@@ -79,9 +83,7 @@ class CreditCalcController extends \core\ActionController
         $this->getParams();
 
         if ($this->validate()) {
-            global $user;
-
-            if ($user->role !== 'admin') {
+            if (inRoles('admin')) {
                 $messages->addError('Only user with administrative privileges can use credit calculator!');
             } else {
                 $messages->addInfo('Proceeding to calculations.');
@@ -109,8 +111,6 @@ class CreditCalcController extends \core\ActionController
 
     protected function generateView()
     {
-        global $user;
-
         $smarty = getSmarty();
 
         $smarty->assign('p_title', 'Credit calculator | Calculator');
@@ -122,7 +122,7 @@ class CreditCalcController extends \core\ActionController
         $smarty->assign('result', $this->result);
         $smarty->assign('hide_hero', $this->hide_hero);
 
-        $smarty->assign('user', $user);
+        $smarty->assign('user', unserialize(getFromSession('user')));
 
         $smarty->display('credit_calc.tpl');
     }

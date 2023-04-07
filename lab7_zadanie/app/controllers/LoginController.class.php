@@ -4,7 +4,13 @@ namespace app\controllers;
 
 use app\forms\LoginForm;
 use app\models\User;
-use function core\getFromRequest;
+use function core\{
+    getFromGet,
+    getFromPost,
+    getFromSession,
+    addRole,
+    redirectTo
+};
 
 /**
  * Class of login controller
@@ -21,8 +27,8 @@ class LoginController extends \core\ActionController
 
     protected function getParams()
     {
-        $this->form->login = getFromRequest('login');
-        $this->form->password = getFromRequest('password');
+        $this->form->login = getFromPost('login');
+        $this->form->password = getFromPost('password');
     }
 
     protected function validate()
@@ -42,10 +48,12 @@ class LoginController extends \core\ActionController
 
         if ($this->form->login === 'admin' && $this->form->password === 'admin') {
             $user = new User($this->form->login, 'admin');
+            addRole($user->role);
             $_SESSION['user'] = serialize($user);
             return true;
         } elseif ($this->form->login === 'user' && $this->form->password === 'user') {
             $user = new User($this->form->login, 'user');
+            addRole($user->role);
             $_SESSION['user'] = serialize($user);
             return true;
         }
@@ -56,28 +64,25 @@ class LoginController extends \core\ActionController
 
     public function process()
     {
-        $config = getConfig();
-
-        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-        if (isset($_SESSION['role'])) header('Location: ' . $config->app_url);
+        $user = (getFromSession('user') != null) ? unserialize(getFromSession('user')) : null;
+        if (isset($user) && isset($user->login) && isset($user->role)) redirectTo('credit_calc');
 
         $this->getParams();
 
         if (!$this->validate()) {
             $this->generateView();
         } else {
-            $action = getFromRequest('next');
+            $action = getFromGet('next');
 
-            if (!empty($action))
-                header('Location: ' . $config->action_url . $action);
+            if (isset($action))
+                redirectTo($action);
             else
-                header('Location: ' . $config->app_url);
+                redirectTo('credit_calc');
         }
     }
 
     public function logout()
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
         session_destroy();
 
         getMessages()->addInfo('Logged out successfully.');
@@ -87,12 +92,14 @@ class LoginController extends \core\ActionController
 
     protected function generateView()
     {
+        $next = (getFromGet('next') != null) ? '&next=' . getFromGet('next') : '';
+
         $smarty = getSmarty();
 
         $smarty->assign('p_title', 'Credit calculator | Login');
         $smarty->assign('p_description', 'Website login form');
         $smarty->assign('p_major_title', 'Login');
-        $smarty->assign('next', '&next=' . getFromRequest('next'));
+        $smarty->assign('next', $next);
 
         $smarty->display('login.tpl');
     }

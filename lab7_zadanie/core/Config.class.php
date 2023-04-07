@@ -11,4 +11,6 @@ class Config
     public $root_path;
     public $action_root;
     public $action_url;
+    public $roles;
+    public $no_permission_action;
 }

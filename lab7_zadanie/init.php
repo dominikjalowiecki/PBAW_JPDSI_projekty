@@ -63,4 +63,7 @@ function getClassLoader()
 
 require_once getConfig()->root_path . '/core/helper_functions.php';
 
+session_start();
+$config->roles = isset($_SESSION['_roles']) ? unserialize($_SESSION['_roles']) : array();
+
 $action = core\getFromRequest('action');

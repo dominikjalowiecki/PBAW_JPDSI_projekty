@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use function core\getFromSession;
+
 /**
  * Class of protected page controller
  * @author Dominik Jałowiecki
@@ -10,8 +12,6 @@ class ProtectedPageController extends \core\Controller
 {
     protected function generateView()
     {
-        global $user;
-
         $smarty = getSmarty();
 
         $smarty->assign('p_title', 'Credit calculator | Protected page');
@@ -19,7 +19,7 @@ class ProtectedPageController extends \core\Controller
         $smarty->assign('p_major_title', 'Protected page');
         $smarty->assign('p_major_description', 'This is protected page.');
 
-        $smarty->assign('user', $user);
+        $smarty->assign('user', unserialize(getFromSession('user')));
 
         $smarty->display('protected_page.tpl');
     }
