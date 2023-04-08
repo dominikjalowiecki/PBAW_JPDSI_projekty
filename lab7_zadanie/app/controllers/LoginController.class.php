@@ -62,10 +62,10 @@ class LoginController extends \core\ActionController
         return false;
     }
 
-    public function process()
+    public function action_login()
     {
         $user = (getFromSession('user') != null) ? unserialize(getFromSession('user')) : null;
-        if (isset($user) && isset($user->login) && isset($user->role)) redirectTo('credit_calc');
+        if (isset($user) && isset($user->login) && isset($user->role)) redirectTo('');
 
         $this->getParams();
 
@@ -77,11 +77,11 @@ class LoginController extends \core\ActionController
             if (isset($action))
                 redirectTo($action);
             else
-                redirectTo('credit_calc');
+                redirectTo('');
         }
     }
 
-    public function logout()
+    public function action_logout()
     {
         session_destroy();
 

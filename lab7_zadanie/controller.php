@@ -3,25 +3,14 @@
 // Front controller
 require_once __DIR__ . '/init.php';
 
-use function core\control;
+$router = getRouter();
 
-getConfig()->no_permission_action = 'credit_calc';
+$router->setDefaultRoute('credit_calc');
+$router->setNoPermissionRoute('credit_calc');
 
-switch ($action) {
-    case 'login':
-        control('LoginController');
-        break;
-    case 'logout':
-        control('LoginController', null, ['user', 'admin'], 'logout');
-        break;
-    case 'protected_page':
-        control('ProtectedPageController', null, ['user']);
-        break;
-    case 'credit_calc':
-    case null:
-        control('CreditCalcController', null, ['user', 'admin']);
-        break;
-    default:
-        echo '404 Page Not Found';
-        break;
-}
+$router->addRoute('login', 'LoginController');
+$router->addRoute('logout', 'LoginController', ['user', 'admin']);
+$router->addExtendedRoute('protected_page', 'ProtectedPageController', null, 'process', 'user');
+$router->addRoute('credit_calc', 'CreditCalcController', ['user', 'admin']);
+
+$router->go();

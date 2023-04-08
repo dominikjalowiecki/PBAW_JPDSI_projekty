@@ -45,7 +45,7 @@
             <label for="output_type">Output type</label>
             <select name="output_type" id="output_type">
                 {if isset($form->output_type)}
-                    <option value="{$form->output_type}" selected>Repeat: {$form->output_type}</option>
+                    <option value="{$form->output_type}" selected>Repeat: {$form->output_type|capitalize}</option>
                     <option value="" disabled>======</option>
                 {/if}
                 <option value="montly">Monthly</option>

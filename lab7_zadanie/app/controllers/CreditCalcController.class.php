@@ -77,13 +77,13 @@ class CreditCalcController extends \core\ActionController
         return true;
     }
 
-    public function process()
+    public function action_credit_calc()
     {
         $messages = getMessages();
         $this->getParams();
 
         if ($this->validate()) {
-            if (inRoles('admin')) {
+            if (!inRoles('admin')) {
                 $messages->addError('Only user with administrative privileges can use credit calculator!');
             } else {
                 $messages->addInfo('Proceeding to calculations.');

@@ -9,7 +9,7 @@ include __DIR__ . '/config.php';
  * Function allows accessing application config without
  * the necessity of using 'global' keyword
  */
-function &getConfig()
+function &getConfig(): core\Config
 {
     global $config;
     return $config;
@@ -19,7 +19,7 @@ function &getConfig()
 require_once getConfig()->root_path . '/core/Messages.class.php';
 $messages = new core\Messages();
 
-function getMessages()
+function getMessages(): core\Messages
 {
     global $messages;
     return $messages;
@@ -28,7 +28,7 @@ function getMessages()
 
 $smarty = null;
 
-function getSmarty()
+function getSmarty(): Smarty
 {
     global $smarty;
 
@@ -54,10 +54,19 @@ function getSmarty()
 require_once getConfig()->root_path . '/core/ClassLoader.class.php';
 
 $class_loader = new core\ClassLoader();
-function getClassLoader()
+function getClassLoader(): core\ClassLoader
 {
     global $class_loader;
     return $class_loader;
+}
+
+
+require_once getConfig()->root_path . '/core/Router.class.php';
+$router = core\Router::getInstance();
+function getRouter(): core\Router
+{
+    global $router;
+    return $router;
 }
 
 
@@ -66,4 +75,4 @@ require_once getConfig()->root_path . '/core/helper_functions.php';
 session_start();
 $config->roles = isset($_SESSION['_roles']) ? unserialize($_SESSION['_roles']) : array();
 
-$action = core\getFromRequest('action');
+$router->setAction(core\getFromRequest('action'));
