@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use function core\getFromSession;
-use Medoo\Medoo;
 
 /**
  * Class of results page controller
@@ -16,18 +15,7 @@ class ResultsController extends \core\Controller
     public function action_get_results()
     {
         try {
-            $database = new Medoo([
-                'type' => 'mysql',
-                'host' => 'localhost',
-                'database' => 'credit_calc',
-                'username' => 'root',
-                'password' => '',
-                'collation' => 'utf8mb4_polish_ci',
-                'error' => \PDO::ERRMODE_EXCEPTION,
-                'option' => [
-                    \PDO::ATTR_CASE => \PDO::CASE_NATURAL
-                ]
-            ]);
+            $database = getDb();
 
             $this->results = $database->select('result', '*', [
                 'ORDER' => [
@@ -36,7 +24,8 @@ class ResultsController extends \core\Controller
                 'LIMIT' => [0, 10]
             ]);
         } catch (\PDOException $e) {
-            getMessages()->addError('Database error: ' . $e->getMessage());
+            getMessages()->addError('An error has occurred while reading from database...');
+            if (getConfig()->debug) getMessages()->addError('Database error: ' . $e->getMessage());
         }
 
         $this->generateView();

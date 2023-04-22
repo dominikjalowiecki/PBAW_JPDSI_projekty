@@ -6,7 +6,7 @@
     <table class="alt">
         <thead>
             <tr>
-                <th>ID Result</th>
+                <th>Count</th>
                 <th>Amount</th>
                 <th>Year duration</th>
                 <th>Interest rate</th>
@@ -16,9 +16,9 @@
             </tr>
         </thead>
         <tbody>
-            {foreach from=$results item=result}
+            {foreach from=$results key=k item=result}
                 <tr>
-                    <td>{$result['id_result']}</td>
+                    <td>{$k + 1}</td>
                     <td>{$result['amount']}</td>
                     <td>{$result['year_duration']}</td>
                     <td>{$result['interest_rate']}</td>

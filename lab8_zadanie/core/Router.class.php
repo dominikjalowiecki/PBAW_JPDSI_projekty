@@ -93,7 +93,7 @@ class Router
             }
 
             if (!$role_found) {
-                getMessages()->addError('No permission for this action...');
+                getMessages()->addError('Insufficient permissions for this action...');
                 forwardTo($this->no_permission_route);
             }
         }

@@ -1,5 +1,7 @@
 <?php
 
+use Medoo\Medoo;
+
 require_once __DIR__ . '/core/Config.class.php';
 $config = new core\Config();
 
@@ -23,6 +25,17 @@ function getMessages(): core\Messages
 {
     global $messages;
     return $messages;
+}
+
+
+require_once getConfig()->root_path . '/core/ClassLoader.class.php';
+
+$class_loader = new core\ClassLoader();
+$class_loader->addPath('/libs');
+function getClassLoader(): core\ClassLoader
+{
+    global $class_loader;
+    return $class_loader;
 }
 
 
@@ -50,15 +63,28 @@ function getSmarty(): Smarty
     return $smarty;
 }
 
+$db = null;
 
-require_once getConfig()->root_path . '/core/ClassLoader.class.php';
-
-$class_loader = new core\ClassLoader();
-$class_loader->addPath('/libs');
-function getClassLoader(): core\ClassLoader
+function getDb(): Medoo
 {
-    global $class_loader;
-    return $class_loader;
+    global $db;
+    global $config;
+
+    if (!isset($db)) {
+        $db = new Medoo([
+            'type' => $config->db_type,
+            'host' => $config->db_host,
+            'database' => $config->db_name,
+            'username' => $config->db_user,
+            'password' => $config->db_password,
+            'port' => $config->db_port,
+            'charset' => $config->db_charset,
+            'error' => $config->db_error,
+            'option' => $config->db_option
+        ]);
+    }
+
+    return $db;
 }
 
 

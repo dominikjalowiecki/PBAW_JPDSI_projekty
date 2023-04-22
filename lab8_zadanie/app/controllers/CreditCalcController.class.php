@@ -9,7 +9,6 @@ use function core\{
     getFromSession,
     inRoles
 };
-use Medoo\Medoo;
 
 /**
  * Class of credit calculator controller
@@ -106,18 +105,7 @@ class CreditCalcController extends \core\ActionController
                 }
 
                 try {
-                    $database = new Medoo([
-                        'type' => 'mysql',
-                        'host' => 'localhost',
-                        'database' => 'credit_calc',
-                        'username' => 'root',
-                        'password' => '',
-                        'collation' => 'utf8mb4_polish_ci',
-                        'error' => \PDO::ERRMODE_EXCEPTION,
-                        'option' => [
-                            \PDO::ATTR_CASE => \PDO::CASE_NATURAL
-                        ]
-                    ]);
+                    $database = getDb();
 
                     $database->insert('result', [
                         'amount' => $credit_amount,
@@ -128,7 +116,8 @@ class CreditCalcController extends \core\ActionController
                         'date' => date('Y-m-d H:i:s')
                     ]);
                 } catch (\PDOException $e) {
-                    $messages->addError('Database error: ' . $e->getMessage());
+                    $messages->addError('An error has occurred while adding result to database...');
+                    if (getConfig()->debug) $messages->addError('Database error: ' . $e->getMessage());
                 }
             }
         }
