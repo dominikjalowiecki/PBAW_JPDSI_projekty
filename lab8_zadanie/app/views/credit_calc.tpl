@@ -2,8 +2,7 @@
 
 {block name=main}
 <h3>Form</h3>
-<form method="GET" action="{$config->app_url}">
-    <input type="hidden" name="action" value="credit_calc">
+<form method="GET" action="{$config->app_url}credit_calc">
     <div class="row gtr-uniform gtr-50">
         <div class="col-6 col-12-small">
             <label for="credit_amount">Credit amount ($)</label>

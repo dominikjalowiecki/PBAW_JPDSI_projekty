@@ -9,9 +9,9 @@
                 <th>Count</th>
                 <th>Amount</th>
                 <th>Year duration</th>
-                <th>Interest rate</th>
+                <th>Interest rate (%)</th>
                 <th>Output type</th>
-                <th>Result</th>
+                <th>Result ($)</th>
                 <th>Date</th>
             </tr>
         </thead>

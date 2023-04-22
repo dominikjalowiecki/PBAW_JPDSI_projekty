@@ -70,14 +70,30 @@ class Router
         $this->no_permission_route = $route;
     }
 
+    public function forwardTo($action_name)
+    {
+        $this->setAction($action_name);
+        // include getConfig()->root_path . '/controller.php';
 
-    function control($controller_name, $namespace, $roles, $method)
+        $this->go();
+        exit();
+    }
+
+    public function redirectTo($action_name)
+    {
+        header('Location: ' . getConfig()->app_url . $action_name);
+
+        exit();
+    }
+
+
+    private function control($controller_name, $namespace, $roles, $method)
     {
         if ($roles != null) {
             $user = (getFromSession('user', true, 'You have to be logged in to access this page...') != null) ? unserialize(getFromSession('user')) : null;
             if (!(isset($user) && isset($user->login) && isset($user->role)))
-                forwardTo('login');
-            // redirectTo('login&next=' . $this->action);
+                $this->forwardTo('login');
+            // $this->redirectTo('login&next=' . $this->action);
 
             $role_found = false;
             if (is_array($roles)) {
@@ -94,7 +110,7 @@ class Router
 
             if (!$role_found) {
                 getMessages()->addError('Insufficient permissions for this action...');
-                forwardTo($this->no_permission_route);
+                $this->forwardTo($this->no_permission_route);
             }
         }
 

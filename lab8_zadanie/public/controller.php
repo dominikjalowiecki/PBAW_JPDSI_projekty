@@ -1,7 +1,7 @@
 <?php
 
 // Front controller
-require_once __DIR__ . '/init.php';
+require_once __DIR__ . '/../init.php';
 
 $router = getRouter();
 

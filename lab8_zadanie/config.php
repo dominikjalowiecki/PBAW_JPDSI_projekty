@@ -4,8 +4,8 @@ $config->debug = True;
 
 $config->server_name = $_SERVER['SERVER_NAME'];
 $config->server_url = $_SERVER['REQUEST_SCHEME'] . '://' . $config->server_name;
-$config->app_root = dirname($_SERVER['SCRIPT_NAME']);
-$config->action_root = $config->app_root . '/controller.php?action=';
+$config->app_root = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$config->action_root = $config->app_root . 'controller.php?action=';
 
 $config->db_type = 'mysql';
 $config->db_host = 'localhost';

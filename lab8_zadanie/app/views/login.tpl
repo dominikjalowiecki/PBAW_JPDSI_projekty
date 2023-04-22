@@ -1,7 +1,7 @@
 {extends file="_base.tpl"}
 
 {block name=main}
-<form method="POST" action="{$config->action_url}login{$next}">
+<form method="POST" action="{$config->app_url}login{$next}">
     <div class="row gtr-uniform gtr-50">
         <div class="col-4 col-12-small">
         <input

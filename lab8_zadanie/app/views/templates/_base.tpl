@@ -13,10 +13,10 @@
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
     <meta name="description" content="{$p_description|default:"Credit calculator"}">
-    <link rel="stylesheet" href="{$config->app_url}/assets/css/main.css" />
-    <link rel="stylesheet" href="{$config->app_url}/assets/css/style.css" />
+    <link rel="stylesheet" href="{$config->app_url}assets/css/main.css" />
+    <link rel="stylesheet" href="{$config->app_url}assets/css/style.css" />
     <noscript
-      ><link rel="stylesheet" href="{$config->app_url}/assets/css/noscript.css"
+      ><link rel="stylesheet" href="{$config->app_url}assets/css/noscript.css"
     /></noscript>
   </head>
   <body class="is-preload {if !$hide_hero|default:true}landing{/if}">
@@ -29,12 +29,12 @@
           <ul>
             {if isset($user)}
               <li><b>Welcome {$user->login}. Role: {$user->role}</b></li>
-              <li><a href="{$config->action_url}credit_show">Home</a></li>
-              <li><a href="{$config->action_url}protected_page">Protected page</a></li>
-              <li><a href="{$config->action_url}get_results">Results</a></li>
-              <li><a href="{$config->action_url}logout" class="button primary">Logout</a></li>
+              <li><a href="{$config->app_url}credit_show">Home</a></li>
+              <li><a href="{$config->app_url}protected_page">Protected page</a></li>
+              <li><a href="{$config->app_url}get_results">Results</a></li>
+              <li><a href="{$config->app_url}logout" class="button primary">Logout</a></li>
             {else}
-              <li><a href="{$config->action_url}login" class="button primary">Sign Up</a></li>
+              <li><a href="{$config->app_url}login" class="button primary">Sign Up</a></li>
             {/if}
           </ul>
         {/strip}
@@ -84,13 +84,13 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{$config->app_url}/assets/js/jquery.min.js"></script>
-    <script src="{$config->app_url}/assets/js/jquery.scrolly.min.js"></script>
-    <script src="{$config->app_url}/assets/js/jquery.dropotron.min.js"></script>
-    <script src="{$config->app_url}/assets/js/jquery.scrollex.min.js"></script>
-    <script src="{$config->app_url}/assets/js/browser.min.js"></script>
-    <script src="{$config->app_url}/assets/js/breakpoints.min.js"></script>
-    <script src="{$config->app_url}/assets/js/util.js"></script>
-    <script src="{$config->app_url}/assets/js/main.js"></script>
+    <script src="{$config->app_url}assets/js/jquery.min.js"></script>
+    <script src="{$config->app_url}assets/js/jquery.scrolly.min.js"></script>
+    <script src="{$config->app_url}assets/js/jquery.dropotron.min.js"></script>
+    <script src="{$config->app_url}assets/js/jquery.scrollex.min.js"></script>
+    <script src="{$config->app_url}assets/js/browser.min.js"></script>
+    <script src="{$config->app_url}assets/js/breakpoints.min.js"></script>
+    <script src="{$config->app_url}assets/js/util.js"></script>
+    <script src="{$config->app_url}assets/js/main.js"></script>
   </body>
 </html>

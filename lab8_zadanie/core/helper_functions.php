@@ -37,23 +37,6 @@ function getFromSession($name, $required = false, $error_message = '')
     return getFrom($_SESSION, $name, $required, $error_message);
 }
 
-function forwardTo($action_name)
-{
-    $router = getRouter();
-    $router->setAction($action_name);
-    // include getConfig()->root_path . '/controller.php';
-
-    $router->go();
-    exit();
-}
-
-function redirectTo($action_name)
-{
-    header('Location: ' . getConfig()->action_url . $action_name);
-
-    exit();
-}
-
 function addRole($role_name)
 {
     $config = getConfig();

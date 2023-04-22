@@ -8,8 +8,7 @@ use function core\{
     getFromGet,
     getFromPost,
     getFromSession,
-    addRole,
-    redirectTo
+    addRole
 };
 
 /**
@@ -65,7 +64,7 @@ class LoginController extends \core\ActionController
     public function action_login()
     {
         $user = (getFromSession('user') != null) ? unserialize(getFromSession('user')) : null;
-        if (isset($user) && isset($user->login) && isset($user->role)) redirectTo('');
+        if (isset($user) && isset($user->login) && isset($user->role)) getRouter()->redirectTo('');
 
         $this->getParams();
 
@@ -75,9 +74,9 @@ class LoginController extends \core\ActionController
             $action = getFromGet('next');
 
             if (isset($action))
-                redirectTo($action);
+                getRouter()->redirectTo($action);
             else
-                redirectTo('');
+                getRouter()->redirectTo('');
         }
     }
 
@@ -92,7 +91,7 @@ class LoginController extends \core\ActionController
 
     protected function generateView()
     {
-        $next = (getFromGet('next') != null) ? '&next=' . getFromGet('next') : '';
+        $next = (getFromGet('next') != null) ? '?next=' . getFromGet('next') : '';
 
         $smarty = getSmarty();
 
